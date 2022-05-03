@@ -56,7 +56,7 @@ address payable public sellerAddress;
         }
     }
     
-    function depositETH()
+    function depositXTZ()
         public
         payable
         inProjectState(ProjectState.nftDeposited)
@@ -67,7 +67,7 @@ address payable public sellerAddress;
     
     function initiateDelivery()
         public
-        inProjectState(ProjectState.ethDeposited)
+        inProjectState(ProjectState.XTZDeposited)
         onlySeller
         noDispute
     {
