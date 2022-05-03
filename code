@@ -12,8 +12,8 @@ address payable public sellerAddress;
         projectState = ProjectState.newEscrow;
     }
     
-    function onERC721Received( address operator, address from, uint256 tokenId, bytes calldata data ) public override returns (bytes4) {
-        return this.onERC721Received.selector;
+    function onFa2Received( address operator, address from, uint256 tokenId, bytes calldata data ) public override returns (bytes4) {
+        return this.onFa2Received.selector;
     }
     
     function depositNFT(address _NFTAddress, uint256 _TokenID)
@@ -23,7 +23,7 @@ address payable public sellerAddress;
     {
         nftAddress = _NFTAddress;
         tokenID = _TokenID;
-        ERC721(nftAddress).safeTransferFrom(msg.sender, address(this), tokenID);
+        Fa2(nftAddress).safeTransferFrom(msg.sender, address(this), tokenID);
         projectState = ProjectState.nftDeposited;
     }
     
@@ -32,7 +32,7 @@ address payable public sellerAddress;
         inProjectState(ProjectState.nftDeposited)
         onlySeller
     {
-        ERC721(nftAddress).safeTransferFrom(address(this), msg.sender, tokenID);
+        Fa2(nftAddress).safeTransferFrom(address(this), msg.sender, tokenID);
         projectState = ProjectState.cancelNFT;
     }
   
@@ -50,7 +50,7 @@ address payable public sellerAddress;
         }
         
         if (sellerCancel == true && buyerCancel == true){
-            ERC721(nftAddress).safeTransferFrom(address(this), sellerAddress, tokenID);
+            Fa2(nftAddress).safeTransferFrom(address(this), sellerAddress, tokenID);
             buyerAddress.transfer(address(this).balance);
             projectState = ProjectState.canceledBeforeDelivery;     
         }
@@ -80,7 +80,7 @@ address payable public sellerAddress;
         inProjectState(ProjectState.deliveryInitiated)
         onlyBuyer
     {
-        ERC721(nftAddress).safeTransferFrom(address(this), buyerAddress, tokenID);
+        Fa2(nftAddress).safeTransferFrom(address(this), buyerAddress, tokenID);
         sellerAddress.transfer(address(this).balance);
         projectState = ProjectState.delivered;
     }
