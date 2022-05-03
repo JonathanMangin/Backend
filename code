@@ -38,7 +38,7 @@ address payable public sellerAddress;
   
     function cancelBeforeDelivery(bool _state)
         public
-        inProjectState(ProjectState.ethDeposited)
+        inProjectState(ProjectState.XTZDeposited)
         payable
         BuyerOrSeller
     {
@@ -62,7 +62,7 @@ address payable public sellerAddress;
         inProjectState(ProjectState.nftDeposited)
     {
         buyerAddress = payable(msg.sender);
-        projectState = ProjectState.ethDeposited;
+        projectState = ProjectState.XTZDeposited;
     }
     
     function initiateDelivery()
